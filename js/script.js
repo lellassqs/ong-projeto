@@ -1,114 +1,194 @@
-// ===============================
+// ==================================================
 // MÁSCARA DE CPF
-// ===============================
+// ==================================================
 
 const cpf = document.getElementById("cpf");
 
 if (cpf) {
+
     cpf.addEventListener("input", function () {
+
         let valor = cpf.value.replace(/\D/g, "");
 
-        valor = valor.replace(/(\d{3})(\d)/, "$1.$2");
-        valor = valor.replace(/(\d{3})(\d)/, "$1.$2");
-        valor = valor.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+        valor = valor.replace(
+            /(\d{3})(\d)/,
+            "$1.$2"
+        );
+
+        valor = valor.replace(
+            /(\d{3})(\d)/,
+            "$1.$2"
+        );
+
+        valor = valor.replace(
+            /(\d{3})(\d{1,2})$/,
+            "$1-$2"
+        );
 
         cpf.value = valor;
+
     });
+
 }
 
 
-// ===============================
+// ==================================================
 // MÁSCARA DE TELEFONE
-// ===============================
+// ==================================================
 
-const telefone = document.getElementById("telefone");
+const telefone =
+    document.getElementById("telefone");
 
 if (telefone) {
-    telefone.addEventListener("input", function () {
-        let valor = telefone.value.replace(/\D/g, "");
 
-        valor = valor.replace(/^(\d{2})(\d)/, "($1) $2");
-        valor = valor.replace(/(\d{5})(\d{1,4})$/, "$1-$2");
+    telefone.addEventListener("input", function () {
+
+        let valor =
+            telefone.value.replace(/\D/g, "");
+
+        valor = valor.replace(
+            /^(\d{2})(\d)/,
+            "($1) $2"
+        );
+
+        valor = valor.replace(
+            /(\d{5})(\d{1,4})$/,
+            "$1-$2"
+        );
 
         telefone.value = valor;
+
     });
+
 }
 
 
-// ===============================
+// ==================================================
 // MÁSCARA DE CEP
-// ===============================
+// ==================================================
 
 const cep = document.getElementById("cep");
 
 if (cep) {
-    cep.addEventListener("input", function () {
-        let valor = cep.value.replace(/\D/g, "");
 
-        valor = valor.replace(/^(\d{5})(\d)/, "$1-$2");
+    cep.addEventListener("input", function () {
+
+        let valor =
+            cep.value.replace(/\D/g, "");
+
+        valor = valor.replace(
+            /^(\d{5})(\d)/,
+            "$1-$2"
+        );
 
         cep.value = valor;
+
     });
+
 }
 
 
-// ===============================
+// ==================================================
+// MENU HAMBÚRGUER
+// ==================================================
+
+const menuToggle =
+    document.getElementById("menu-toggle");
+
+const menuPrincipal =
+    document.getElementById("menu-principal");
+
+if (menuToggle && menuPrincipal) {
+
+    menuToggle.addEventListener("click", function () {
+
+        const aberto =
+            menuPrincipal.classList.toggle(
+                "menu-aberto"
+            );
+
+        menuToggle.setAttribute(
+            "aria-expanded",
+            aberto
+        );
+
+        menuToggle.setAttribute(
+            "aria-label",
+            aberto
+                ? "Fechar menu"
+                : "Abrir menu"
+        );
+
+    });
+
+}
+
+
+// ==================================================
 // TOAST
-// ===============================
+// ==================================================
 
 function mostrarToast(mensagem) {
 
-    let toast = document.getElementById("toast");
+    let toast =
+        document.getElementById("toast");
 
     if (!toast) {
-        toast = document.createElement("div");
+
+        toast =
+            document.createElement("div");
 
         toast.id = "toast";
+
         toast.className = "toast";
 
-        toast.setAttribute("role", "status");
-        toast.setAttribute("aria-live", "polite");
+        toast.setAttribute(
+            "role",
+            "status"
+        );
+
+        toast.setAttribute(
+            "aria-live",
+            "polite"
+        );
 
         document.body.appendChild(toast);
+
     }
 
     toast.textContent = mensagem;
+
     toast.classList.add("mostrar");
 
     setTimeout(function () {
+
         toast.classList.remove("mostrar");
+
     }, 4000);
+
 }
 
 
-// ===============================
-// ALERTA DO FORMULÁRIO
-// ===============================
+// ==================================================
+// ALERTA
+// ==================================================
 
-function mostrarAlerta(mensagem, tipo) {
+function mostrarAlerta(
+    mensagem,
+    tipo
+) {
 
-    let alerta = document.getElementById("form-alert");
+    const alerta =
+        document.getElementById(
+            "form-alert"
+        );
 
     if (!alerta) {
-
-        alerta = document.createElement("div");
-
-        alerta.id = "form-alert";
-        alerta.className = "alert";
-
-        alerta.setAttribute("role", "alert");
-
-        const formularioAtual = document.querySelector("form");
-
-        if (formularioAtual) {
-            formularioAtual.parentNode.insertBefore(
-                alerta,
-                formularioAtual
-            );
-        }
+        return;
     }
 
-    alerta.textContent = mensagem;
+    alerta.textContent =
+        mensagem;
 
     alerta.classList.remove(
         "alert-success",
@@ -118,163 +198,333 @@ function mostrarAlerta(mensagem, tipo) {
     alerta.classList.add(tipo);
 
     alerta.hidden = false;
+
 }
 
 
-// ===============================
-// CRIAR MODAL
-// ===============================
+// ==================================================
+// MODAL
+// ==================================================
 
 function criarModal() {
 
-    let modal = document.getElementById("modal-confirmacao");
+    let modal =
+        document.getElementById(
+            "modal-confirmacao"
+        );
 
     if (modal) {
         return modal;
     }
 
-    modal = document.createElement("dialog");
 
-    modal.id = "modal-confirmacao";
-    modal.className = "modal";
+    modal =
+        document.createElement(
+            "dialog"
+        );
 
+    modal.id =
+        "modal-confirmacao";
 
-    // Conteúdo do modal
-    const conteudo = document.createElement("div");
-
-    conteudo.className = "modal-conteudo";
-
-
-    // Título
-    const titulo = document.createElement("h2");
-
-    titulo.textContent = "Cadastro realizado";
+    modal.className =
+        "modal";
 
 
-    // Texto
-    const texto = document.createElement("p");
+    const conteudo =
+        document.createElement(
+            "div"
+        );
+
+    conteudo.className =
+        "modal-conteudo";
+
+
+    const titulo =
+        document.createElement(
+            "h2"
+        );
+
+    titulo.textContent =
+        "Cadastro realizado";
+
+
+    const texto =
+        document.createElement(
+            "p"
+        );
 
     texto.textContent =
         "Seu interesse em colaborar com a ONG foi registrado com sucesso.";
 
 
-    // Botão
-    const botao = document.createElement("button");
+    const botao =
+        document.createElement(
+            "button"
+        );
 
     botao.type = "button";
-    botao.id = "fechar-modal";
-    botao.textContent = "Fechar";
+
+    botao.className = "botao";
+
+    botao.textContent =
+        "Fechar";
 
 
-    // Montagem
-    conteudo.appendChild(titulo);
-    conteudo.appendChild(texto);
-    conteudo.appendChild(botao);
+    conteudo.appendChild(
+        titulo
+    );
 
-    modal.appendChild(conteudo);
+    conteudo.appendChild(
+        texto
+    );
 
-    document.body.appendChild(modal);
+    conteudo.appendChild(
+        botao
+    );
+
+    modal.appendChild(
+        conteudo
+    );
+
+    document.body.appendChild(
+        modal
+    );
 
 
-    // Fechar modal
-    botao.addEventListener("click", function () {
-        modal.close();
-    });
+    botao.addEventListener(
+        "click",
+        function () {
+
+            modal.close();
+
+        }
+    );
 
 
     return modal;
+
 }
 
 
-// ===============================
-// ENVIO DO FORMULÁRIO
-// ===============================
+// ==================================================
+// VALIDAÇÃO DOS CAMPOS
+// ==================================================
 
-const formulario = document.querySelector("form");
+function validarCampo(campo) {
+
+    if (!campo) {
+        return true;
+    }
+
+    if (campo.checkValidity()) {
+
+        campo.classList.remove(
+            "input-erro"
+        );
+
+        campo.classList.add(
+            "input-sucesso"
+        );
+
+        return true;
+
+    }
+
+
+    campo.classList.remove(
+        "input-sucesso"
+    );
+
+    campo.classList.add(
+        "input-erro"
+    );
+
+    return false;
+
+}
+
+
+// ==================================================
+// FORMULÁRIO
+// ==================================================
+
+const formulario =
+    document.getElementById(
+        "formulario-cadastro"
+    );
+
 
 if (formulario) {
 
-    formulario.addEventListener("submit", function (event) {
 
-        event.preventDefault();
-
-
-        // Verificação dos campos
-        if (!formulario.checkValidity()) {
-
-            mostrarAlerta(
-                "Por favor, preencha corretamente todos os campos obrigatórios.",
-                "alert-error"
-            );
-
-            mostrarToast(
-                "Verifique os campos do formulário."
-            );
-
-            formulario.reportValidity();
-
-            return;
-        }
-
-
-        // Mensagem de sucesso
-        mostrarAlerta(
-            "Cadastro enviado com sucesso! Obrigado por querer colaborar.",
-            "alert-success"
+    const campos =
+        formulario.querySelectorAll(
+            "input, select, textarea"
         );
 
 
-        // Toast
-        mostrarToast(
-            "Cadastro enviado com sucesso!"
+    campos.forEach(function (campo) {
+
+        campo.addEventListener(
+            "blur",
+            function () {
+
+                validarCampo(campo);
+
+            }
         );
-
-
-        // Modal
-        const modal = criarModal();
-
-        modal.showModal();
-
-
-        // Limpar formulário
-        formulario.reset();
 
     });
+
+
+    formulario.addEventListener(
+        "submit",
+        function (event) {
+
+            event.preventDefault();
+
+
+            let formularioValido = true;
+
+
+            campos.forEach(
+                function (campo) {
+
+                    if (
+                        campo.type !==
+                        "checkbox"
+                    ) {
+
+                        if (
+                            !validarCampo(
+                                campo
+                            )
+                        ) {
+
+                            formularioValido =
+                                false;
+
+                        }
+
+                    }
+
+                }
+            );
+
+
+            if (
+                !formulario.checkValidity()
+            ) {
+
+                formularioValido =
+                    false;
+
+            }
+
+
+            if (
+                !formularioValido
+            ) {
+
+                mostrarAlerta(
+                    "Por favor, preencha corretamente todos os campos obrigatórios.",
+                    "alert-error"
+                );
+
+                mostrarToast(
+                    "Verifique os campos do formulário."
+                );
+
+                formulario.reportValidity();
+
+                return;
+
+            }
+
+
+            mostrarAlerta(
+                "Cadastro enviado com sucesso! Obrigado por querer colaborar.",
+                "alert-success"
+            );
+
+
+            mostrarToast(
+                "Cadastro enviado com sucesso!"
+            );
+
+
+            const modal =
+                criarModal();
+
+
+            modal.showModal();
+
+
+            formulario.reset();
+
+
+            campos.forEach(
+                function (campo) {
+
+                    campo.classList.remove(
+                        "input-sucesso",
+                        "input-erro"
+                    );
+
+                }
+            );
+
+        }
+    );
+
 }
 
 
-// ===============================
+// ==================================================
 // BADGE DE DOAÇÃO
-// ===============================
+// ==================================================
 
-const badgeDoacao = document.getElementById("badge-doacao");
+const badgeDoacao =
+    document.getElementById(
+        "badge-doacao"
+    );
 
 if (badgeDoacao) {
 
-    badgeDoacao.addEventListener("click", function () {
+    badgeDoacao.addEventListener(
+        "click",
+        function () {
 
-        mostrarToast(
-            "A campanha está ativa! Você pode contribuir com alimentos e itens essenciais."
-        );
+            mostrarToast(
+                "A campanha está ativa! Você pode contribuir com alimentos e itens essenciais."
+            );
 
-    });
+        }
+    );
+
 }
 
 
-// ===============================
+// ==================================================
 // BADGE DE VOLUNTARIADO
-// ===============================
+// ==================================================
 
 const badgeVoluntariado =
-    document.getElementById("badge-voluntariado");
+    document.getElementById(
+        "badge-voluntariado"
+    );
 
 if (badgeVoluntariado) {
 
-    badgeVoluntariado.addEventListener("click", function () {
+    badgeVoluntariado.addEventListener(
+        "click",
+        function () {
 
-        mostrarToast(
-            "As inscrições estão abertas! Acesse a página Participe para realizar seu cadastro."
-        );
+            mostrarToast(
+                "As inscrições estão abertas! Acesse a página Participe para realizar seu cadastro."
+            );
 
-    });
+        }
+    );
+
 }
